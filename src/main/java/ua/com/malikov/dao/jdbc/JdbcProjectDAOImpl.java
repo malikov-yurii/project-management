@@ -29,11 +29,11 @@ public class JdbcProjectDAOImpl implements ProjectDAO {
 
     private static final String UPDATE_ROW = String.format(
             "UPDATE pms.projects SET %s = ?, %s = ?, %s =? WHERE %s =?",
-            Project.PROJECT_NAME, Project.CUSTOMER_ID, Project.COMPANY_ID, Project.ID);
+            Project.NAME, Project.CUSTOMER_ID, Project.COMPANY_ID, Project.ID);
 
     private static final String INSERT_ROW = String.format(
             "INSERT INTO pms.projects (%s, %s, %s, %s) VALUES (?,?,?,?)",
-            Project.PROJECT_NAME, Project.CUSTOMER_ID, Project.COMPANY_ID, Project.COST);
+            Project.NAME, Project.CUSTOMER_ID, Project.COMPANY_ID, Project.COST);
 
     private static final String REMOVE_DEVELOPER_FROM_PROJECT = "DELETE FROM pms.projects_developers WHERE project_id=?";
 
@@ -41,7 +41,7 @@ public class JdbcProjectDAOImpl implements ProjectDAO {
 
     @Override
     public void delete(Project project) {
-
+        deleteById(project.getId());
     }
 
     private static final String DELETE_ALL = "DELETE FROM pms.projects CASCADE";
@@ -192,7 +192,7 @@ public class JdbcProjectDAOImpl implements ProjectDAO {
                     LOG.info("Loading project by id was successful.");
                     return new Project(
                             resultSet.getInt(Project.ID),
-                            resultSet.getString(Project.PROJECT_NAME),
+                            resultSet.getString(Project.NAME),
                             companyDAO.load(resultSet.getInt(Project.COMPANY_ID)),
                             customerDAO.load(resultSet.getInt(Project.CUSTOMER_ID)),
                             getDevelopersByProjectId(id),
@@ -233,7 +233,7 @@ public class JdbcProjectDAOImpl implements ProjectDAO {
                     Project project = new Project();
                     int projectId = resultSet.getInt(Project.ID);
                     project.setId(projectId);
-                    project.setName(resultSet.getString(Project.PROJECT_NAME));
+                    project.setName(resultSet.getString(Project.NAME));
                     project.setCompany(companyDAO.load(resultSet.getInt(Project.COMPANY_ID)));
                     project.setCustomer(customerDAO.load(resultSet.getInt(Project.CUSTOMER_ID)));
                     project.setCost(resultSet.getFloat(Project.COST));

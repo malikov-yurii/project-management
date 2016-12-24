@@ -17,12 +17,20 @@
     </bean>
 
 
-    <bean id="companyDAO" class="ua.com.malikov.dao.jdbc.JdbcCompanyDAOImpl">
-        <property name="dataSource" ref="dataSource"/>
+    <!--<bean id="companyDAO" class="ua.com.malikov.dao.jdbc.JdbcCompanyDAOImpl">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
+
+    <bean id="companyDAO" class="ua.com.malikov.dao.hibernate.HCompanyDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="customerDAO" class="ua.com.malikov.dao.jdbc.JdbcCustomerDAOImpl">
-        <property name="dataSource" ref="dataSource"/>
+    <!--<bean id="customerDAO" class="ua.com.malikov.dao.jdbc.JdbcCustomerDAOImpl">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
+
+    <bean id="customerDAO" class="ua.com.malikov.dao.hibernate.HCustomerDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <!--<bean id="developerDAO" class="JdbcDeveloperDAOImpl">-->
@@ -35,15 +43,23 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="projectDAO" class="ua.com.malikov.dao.jdbc.JdbcProjectDAOImpl">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="developerDAO" ref="developerDAO"/>
-        <property name="companyDAO" ref="companyDAO"/>
-        <property name="customerDAO" ref="customerDAO"/>
+    <!--<bean id="projectDAO" class="ua.com.malikov.dao.jdbc.JdbcProjectDAOImpl">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <!--<property name="developerDAO" ref="developerDAO"/>-->
+        <!--<property name="companyDAO" ref="companyDAO"/>-->
+        <!--<property name="customerDAO" ref="customerDAO"/>-->
+    <!--</bean>-->
+
+    <bean id="projectDAO" class="ua.com.malikov.dao.hibernate.HProjectDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="skillDAO" class="ua.com.malikov.dao.jdbc.JdbcSkillDAOImpl">
-        <property name="dataSource" ref="dataSource"/>
+    <!--<bean id="skillDAO" class="ua.com.malikov.dao.jdbc.JdbcSkillDAOImpl">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
+
+    <bean id="skillDAO" class="ua.com.malikov.dao.hibernate.HSkillDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="companyController" class="ua.com.malikov.controller.CompanyController" >

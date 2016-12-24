@@ -43,6 +43,11 @@ public class JdbcDeveloperDAOImpl implements DeveloperDAO {
     private static final String GET_SKILLS_OF_DEVELOPER =
             "SELECT skill_id FROM pms.developers_skills WHERE developer_id=?";
 
+    @Override
+    public void delete(Developer developer) {
+        deleteById(developer.getId());
+    }
+
     private static final String DELETE_ALL = "DELETE FROM pms.developers";
 
     private static final Logger LOG = getLogger(JdbcDeveloperDAOImpl.class);

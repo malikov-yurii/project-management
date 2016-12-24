@@ -1,20 +1,41 @@
 package ua.com.malikov.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
 import java.util.Set;
 
+@Entity
+@Table(name = "projects")
+@AttributeOverride(name = "name", column = @Column(name = Project.NAME))
 public class Project extends NamedEntity {
 
     public static final String COMPANY_ID = "company_id";
     public static final String CUSTOMER_ID = "customer_id";
-    public static final String PROJECT_NAME = "project_name";
+    public static final String NAME = "project_name";
     public static final String COST = "cost";
 
+    @ManyToOne
+    @Fetch(FetchMode.JOIN)
+    @JoinColumn(name = Project.COMPANY_ID)
     private Company company;
 
+    @ManyToOne
+    @Fetch(FetchMode.JOIN)
+    @JoinColumn(name = Project.CUSTOMER_ID)
     private Customer customer;
 
+    @Column(name = Project.COST)
     private float cost;
 
+    @ManyToMany
+    @Fetch(FetchMode.JOIN)
+    @JoinTable(
+            name = "projects_developers",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn( name = "developer_id")
+    )
     private Set<Developer> developers;
 
     public Project(String name, Company company, Customer customer, Set<Developer> developers) {
@@ -29,12 +50,12 @@ public class Project extends NamedEntity {
         this.id = id;
     }
 
-    public Project(Integer id, String name, Company company, Customer customer, Set<Developer> developers, Float cost){
+    public Project(Integer id, String name, Company company, Customer customer, Set<Developer> developers, Float cost) {
         this(id, name, company, customer, developers);
         this.cost = cost;
     }
 
-    public Project(String name, Company company, Customer customer, Set<Developer> developers, Float cost){
+    public Project(String name, Company company, Customer customer, Set<Developer> developers, Float cost) {
         this(name, company, customer, developers);
         this.cost = cost;
     }

@@ -1,8 +1,6 @@
 package ua.com.malikov.dao.hibernate;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.malikov.dao.DeveloperDAO;
@@ -21,52 +19,44 @@ public class HDeveloperDAOImpl implements DeveloperDAO {
     @Override
     @Transactional
     public Developer save(Developer developer) {
-        sessionFactory.getCurrentSession().save(developer);
-        return developer;
+        return HUtils.save(developer, sessionFactory.getCurrentSession(), LOG);
     }
 
     @Override
-    public void saveAll(List<Developer> list) {
-
+    @Transactional
+    public void saveAll(List<Developer> developers) {
+        HUtils.saveAll(developers, sessionFactory.getCurrentSession(), LOG);
     }
 
     @Override
     public Developer load(int id) {
-        Developer developer = sessionFactory.getCurrentSession().load(Developer.class, id);
-        if (developer == null){
-            LOG.error("Cannot find developer by id ID: " + id);
-        }
-        return developer;
+        return HUtils.loadById(Developer.class, id, sessionFactory.getCurrentSession(), LOG);
     }
 
-    public Developer loadByLastName(String lastName){
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("select d from Developer d where d.lastName like :lastName");
-        query.setParameter("lastName", lastName);
-        return (Developer) query.uniqueResult();
+    public Developer loadByLastName(String lastName) {
+        return HUtils.loadByName(lastName, "from Developer where lastName like :lastName",
+                sessionFactory.getCurrentSession(), LOG);
     }
 
     @Override
     public List<Developer> findAll() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("select d from Developer d").list();
+        return HUtils.findAll("from Developer", sessionFactory.getCurrentSession(), LOG);
     }
 
     @Override
     public void delete(Developer developer) {
-        sessionFactory.getCurrentSession().delete(developer);
+        HUtils.delete(developer, sessionFactory.getCurrentSession(), LOG);
     }
 
     @Override
     public void deleteById(int id) {
-
-
+        HUtils.deleteById(id, "delete Developer where id=:id",
+                sessionFactory.getCurrentSession(), LOG);
     }
 
     @Override
     public void deleteAll() {
-        sessionFactory.getCurrentSession().createQuery("delete from Developer").executeUpdate();
-
+        HUtils.deleteAll("delete Developer", sessionFactory.getCurrentSession(), LOG);
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {

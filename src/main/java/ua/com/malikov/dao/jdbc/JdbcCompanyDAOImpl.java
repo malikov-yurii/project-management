@@ -212,6 +212,11 @@ public class JdbcCompanyDAOImpl implements CompanyDAO {
         }
     }
 
+    @Override
+    public void delete(Company company) {
+        deleteById(company.getId());
+    }
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }

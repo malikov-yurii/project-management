@@ -1,5 +1,13 @@
 package ua.com.malikov.model;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "skills")
+@AttributeOverride(name = "name", column = @Column(name = Skill.NAME))
 public class Skill extends NamedEntity {
 
     public static final String NAME = "skill_name";

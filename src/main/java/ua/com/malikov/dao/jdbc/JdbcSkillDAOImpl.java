@@ -142,7 +142,7 @@ public class JdbcSkillDAOImpl implements SkillDAO {
 
     @Override
     public void delete(Skill skill) {
-
+        deleteById(skill.getId());
     }
 
     @Override

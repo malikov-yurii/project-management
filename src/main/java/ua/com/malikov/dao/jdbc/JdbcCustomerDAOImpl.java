@@ -141,6 +141,11 @@ public class JdbcCustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
+    public void delete(Customer customer) {
+        deleteById(customer.getId());
+    }
+
+    @Override
     public void deleteById(int id) {
         try (Connection connection = getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(DELETE_ROW)) {
