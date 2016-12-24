@@ -1,4 +1,4 @@
-package ua.com.malikov;
+package ua.com.malikov.view;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,22 +1,10 @@
 package ua.com.malikov.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class NamedEntity {
-
-    public static final String ID = "id";
-
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
-    @Column(name = NamedEntity.ID)
-    protected Integer id;
+public class NamedEntity extends BaseEntity {
 
     @Column
     protected String name;
@@ -46,13 +34,6 @@ public class NamedEntity {
                 ", name = '" + name + '\'';
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
     public boolean isNew() {
         return (getId() == null);
     }
