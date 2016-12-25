@@ -40,6 +40,7 @@ public class HProjectDAOImpl implements ProjectDAO{
     public void addDevToProject(Developer developer, Project project) {
         project.getDevelopers().add(developer);
         save(project);
+
     }
 
     @Override
@@ -51,6 +52,10 @@ public class HProjectDAOImpl implements ProjectDAO{
     public void deleteById(int id) {
         HUtils.deleteById(id, "delete Project where id=:id",
                 sessionFactory.getCurrentSession(), LOG);
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override

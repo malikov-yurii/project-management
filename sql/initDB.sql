@@ -1,3 +1,11 @@
+DROP TABLE pms.developers_skills;
+DROP TABLE pms.projects_developers;
+DROP TABLE pms.projects;
+DROP TABLE pms.customers;
+DROP TABLE pms.developers;
+DROP TABLE pms.companies;
+DROP TABLE pms.skills;
+
 CREATE TABLE pms.companies
 (
     id serial NOT NULL,
@@ -18,6 +26,7 @@ CREATE TABLE pms.projects
 	  company_id integer NOT NULL,
     customer_id integer NOT NULL,
     project_name character varying(50) NOT NULL,
+    cost numeric(10,2),
     PRIMARY KEY (id),
 	FOREIGN KEY (company_id)
         REFERENCES pms.companies (id) MATCH SIMPLE
@@ -35,6 +44,7 @@ CREATE TABLE pms.developers
     first_name character varying(50) NOT NULL,
     last_name character varying(50),
     company_id integer NOT NULL,
+    salary numeric(10,2),
     PRIMARY KEY (id),
     FOREIGN KEY (company_id)
         REFERENCES pms.companies (id) MATCH SIMPLE
@@ -79,14 +89,3 @@ CREATE TABLE pms.projects_developers
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
-
--- Added from 1.2 --
-ALTER TABLE
-  pms.developers
-ADD
-  salary numeric(10,2);
-
-ALTER TABLE
-  pms.projects
-ADD
-  cost numeric(10,2);

@@ -1,26 +1,21 @@
 package ua.com.malikov.view;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ua.com.malikov.controller.CustomerController;
-import ua.com.malikov.controller.SkillController;
-import ua.com.malikov.model.Company;
-import ua.com.malikov.model.Developer;
-import ua.com.malikov.model.Skill;
-import ua.com.malikov.controller.AbstractController;
-import ua.com.malikov.controller.CompanyController;
-import ua.com.malikov.controller.DeveloperController;
-import ua.com.malikov.controller.ProjectController;
-import ua.com.malikov.model.Customer;
-import ua.com.malikov.model.NamedEntity;
-import ua.com.malikov.model.Project;
+import ua.com.malikov.controller.*;
+import ua.com.malikov.model.*;
 
+import javax.sql.DataSource;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +23,7 @@ import java.util.Set;
 public class Main {
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private boolean reInit;
 
     private CompanyController companyController;
     private CustomerController customerController;
@@ -35,10 +31,26 @@ public class Main {
     private ProjectController projectController;
     private SkillController skillController;
 
+    private DataSource dataSource;
+
     public static void main(String[] args) throws Exception {
         ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml", "hibernate-context.xml");
         Main main = context.getBean(Main.class);
         main.start();
+    }
+
+    private void init() {
+        if (reInit) {
+            try (FileInputStream inputStreamForInit = new FileInputStream("sql/initDB.sql");
+                 FileInputStream inputStreamForPopulate = new FileInputStream("sql/populateDB.sql");
+                 Connection conn = dataSource.getConnection();
+                 Statement statement = conn.createStatement()) {
+                statement.executeUpdate(IOUtils.toString(inputStreamForInit));
+                statement.executeUpdate(IOUtils.toString(inputStreamForPopulate));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void start() throws Exception {
@@ -305,13 +317,13 @@ public class Main {
                                 System.out.print("Enter new name of developer or press 'Enter' " +
                                         "if you dont want to change name: ");
                                 String newName = br.readLine();
-                                if ("".equals(newName)){
+                                if ("".equals(newName)) {
                                     newName = developer.getName();
                                 }
                                 System.out.print("Please enter new last name of updated developer or press \'Enter\' " +
                                         "if you dont want to change last name: ");
                                 String newLastName = br.readLine();
-                                if ("".equals(newLastName)){
+                                if ("".equals(newLastName)) {
                                     newLastName = developer.getLastName();
                                 }
                                 System.out.print("Please enter new company id of updated developer: ");
@@ -537,7 +549,7 @@ public class Main {
                 System.out.print("Enter id: ");
                 String input = br.readLine();
                 Integer result = Integer.valueOf(input);
-                if (result > 0){
+                if (result > 0) {
                     return result;
                 }
             } catch (NumberFormatException e) {
@@ -554,11 +566,11 @@ public class Main {
             try {
                 System.out.print("Enter id: ");
                 String input = br.readLine();
-                if ("".equals(input)){
+                if ("".equals(input)) {
                     return -1;
                 }
                 Integer result = Integer.valueOf(input);
-                if (result > 0){
+                if (result > 0) {
                     return result;
                 }
             } catch (NumberFormatException e) {
@@ -620,5 +632,13 @@ public class Main {
 
     public void setSkillController(SkillController skillController) {
         this.skillController = skillController;
+    }
+
+    public void setReInit(boolean reInit) {
+        this.reInit = reInit;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }
