@@ -48,7 +48,7 @@ public class JdbcSkillDAOImpl implements SkillDAO {
                     LOG.error("Something went wrong. Couldn't retrieve generated key from database.");
                 }
             }
-            LOG.info("Skill was successfully saved.");
+            LOG.info("Skill has been successfully saved.");
             return skill;
         } catch (SQLException e) {
             LOG.error("Exception occurred while saving skill", e);
@@ -107,7 +107,7 @@ public class JdbcSkillDAOImpl implements SkillDAO {
                 try ( ResultSet resultSet = preparedStatement.executeQuery() ) {
                     if (resultSet.next()) {
                         Skill skill = new Skill(resultSet.getInt(Skill.ID), name);
-                        LOG.info("Skill " + skill + " was successfully found in database.");
+                        LOG.info("Skill " + skill + " has been successfully found in database.");
                         return skill;
                     } else {
                         LOG.error("Skill was not found.");
@@ -152,7 +152,7 @@ public class JdbcSkillDAOImpl implements SkillDAO {
                          connection.prepareStatement(DELETE_BY_ID)) {
                 preparedStatement.setInt(1, id);
                 preparedStatement.execute();
-                LOG.info("Skill was successfully deleted.");
+                LOG.info("Skill has been successfully deleted.");
             }
         } catch (SQLException e) {
             LOG.error("Exception occurred while deleting skill by id", e);

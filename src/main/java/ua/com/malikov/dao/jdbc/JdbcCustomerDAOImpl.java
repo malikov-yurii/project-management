@@ -25,7 +25,7 @@ public class JdbcCustomerDAOImpl implements CustomerDAO {
     private static final String UPDATE_ROW  = String.format("UPDATE pms.customers SET %s = ? WHERE %s =?",
             Customer.NAME, Customer.ID);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerDAO.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CustomerDAO.class);
 
     private DataSource dataSource;
 
@@ -43,23 +43,23 @@ public class JdbcCustomerDAOImpl implements CustomerDAO {
             try (PreparedStatement ps = connection.prepareStatement(INSERT_ROW, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, customer.getName());
                 if (ps.executeUpdate() == 0) {
-                    LOGGER.error("Creating customer failed.");
+                    LOG.error("Creating customer has failed.");
                     return null;
                 }
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         customer.setId(generatedKeys.getInt(1));
                     } else {
-                        LOGGER.error("Creating customer failed.");
+                        LOG.error("Creating customer has failed.");
                         return null;
                     }
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while creating customer.", e);
+            LOG.error("Exception occurred while creating customer.", e);
             return null;
         }
-        LOGGER.info("Customer was successfully created.");
+        LOG.info("Customer has been successfully created.");
         return customer;
     }
 
@@ -69,14 +69,14 @@ public class JdbcCustomerDAOImpl implements CustomerDAO {
                 ps.setString(1, customer.getName());
                 ps.setInt(2, customer.getId());
                 if (ps.executeUpdate() == 0) {
-                    LOGGER.error("Updating customer failed.");
+                    LOG.error("Updating customer has failed.");
                     return null;
                 }
-                LOGGER.info("Customer was successfully updated.");
+                LOG.info("Customer has been successfully updated.");
                 return customer;
             }
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while updating customer.", e);
+            LOG.error("Exception occurred while updating customer.", e);
             return null;
         }
     }
@@ -90,14 +90,14 @@ public class JdbcCustomerDAOImpl implements CustomerDAO {
                     ps.setString(1, customer.getName());
                     //break method if the customer is  not saved, provided that no commit will be made
                     if (ps.executeUpdate() == 0) {
-                        LOGGER.error("Customers weren\'t successfully saved.");
+                        LOG.error("Saving all customers has failed.");
                         return;
                     }
                 }
-                LOGGER.info("Customers were successfully saved.");
+                LOG.info("Customers have been successfully saved.");
             }
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while saving customers.", e);
+            LOG.error("Exception occurred while saving customers.", e);
         }
     }
 
@@ -108,15 +108,15 @@ public class JdbcCustomerDAOImpl implements CustomerDAO {
                 ps.setInt(1, id);
                 try (ResultSet resultSet = ps.executeQuery()) {
                     if (!resultSet.next()) {
-                        LOGGER.info("Customer wasn\'t successfully loaded by id.");
+                        LOG.info("Loading customer by id has failed.");
                         return null;
                     }
-                    LOGGER.info("Customer was successfully loaded by id.");
+                    LOG.info("Customer has been successfully loaded by id.");
                     return new Customer(resultSet.getInt(Customer.ID), resultSet.getString(Customer.NAME));
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while loading customer by id.", e);
+            LOG.error("Exception occurred while loading customer by id.", e);
             return null;
         }
     }
@@ -130,12 +130,12 @@ public class JdbcCustomerDAOImpl implements CustomerDAO {
                     while (resultSet.next()) {
                         customers.add(new Customer(resultSet.getInt(Customer.ID), resultSet.getString(Customer.NAME)));
                     }
-                    LOGGER.info("All customers were successfully found.");
+                    LOG.info("All customers have been successfully found.");
                     return customers;
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while finding all customers.", e);
+            LOG.error("Exception occurred while search all customers.", e);
             return null;
         }
     }
@@ -151,10 +151,10 @@ public class JdbcCustomerDAOImpl implements CustomerDAO {
             try (PreparedStatement ps = connection.prepareStatement(DELETE_ROW)) {
                 ps.setLong(1, id);
                 ps.executeUpdate();
-                LOGGER.info("Customer was successfully deleted by id.");
+                LOG.info("Customer have been successfully deleted by id.");
             }
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while deleting customer by id.", e);
+            LOG.error("Exception occurred while deleting customer by id.", e);
         }
     }
 
@@ -163,10 +163,10 @@ public class JdbcCustomerDAOImpl implements CustomerDAO {
         try (Connection connection = getConnection()) {
             try (Statement st = connection.createStatement()) {
                 st.executeUpdate(DELETE_ALL);
-                LOGGER.info("All customers were successfully loaded.");
+                LOG.info("All customers have been successfully loaded.");
             }
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while deleting all customers.", e);
+            LOG.error("Exception occurred while deleting all customers.", e);
         }
     }
 
@@ -177,15 +177,15 @@ public class JdbcCustomerDAOImpl implements CustomerDAO {
                 ps.setString(1, name);
                 try (ResultSet resultSet = ps.executeQuery()) {
                     if (!resultSet.next()) {
-                        LOGGER.info("Couldn\'t load customer by name.");
+                        LOG.info("Loading customer by name has failed.");
                         return null;
                     }
-                    LOGGER.info("Customer was successfully loaded by name.");
+                    LOG.info("Customer has been successfully loaded by name.");
                     return new Customer(resultSet.getInt(Customer.ID), resultSet.getString(Customer.NAME));
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while loading customer by name.", e);
+            LOG.error("Exception occurred while loading customer by name.", e);
             return null;
         }
     }

@@ -82,7 +82,7 @@ public class JdbcDeveloperDAOImpl implements DeveloperDAO {
                 ps.setInt(4, developer.getId());
 
                 if (ps.executeUpdate() == 0) {
-                    LOG.error("Updating developer failed, no rows affected");
+                    LOG.error("Updating developer has failed, no rows affected");
                     return null;
                 }
                 return developer;
@@ -100,14 +100,14 @@ public class JdbcDeveloperDAOImpl implements DeveloperDAO {
                 ps.setString(2, developer.getLastName());
                 ps.setInt(3, developer.getCompany().getId());
                 if (ps.executeUpdate() == 0) {
-                    LOG.error("Creating developer failed, no rows affected.");
+                    LOG.error("Creating developer has failed, no rows affected.");
                     return null;
                 }
                 try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         developer.setId(generatedKeys.getInt(1));
                     } else {
-                        LOG.error("Creating developer failed, no ID obtained.");
+                        LOG.error("Creating developer has failed, no ID obtained.");
                         return null;
                     }
                 }
@@ -134,7 +134,7 @@ public class JdbcDeveloperDAOImpl implements DeveloperDAO {
                     if (resultSet.next()) {
                         developer = createDeveloper(resultSet);
                         retrieveSkillsOf(developer);
-                        LOG.info("Developer " + developer + " successfully loaded from DB.");
+                        LOG.info("Developer " + developer + " has beensuccessfully loaded from DB.");
                         return developer;
                     } else {
                         LOG.info("Developer was not found.");
@@ -159,7 +159,7 @@ public class JdbcDeveloperDAOImpl implements DeveloperDAO {
                         retrieveSkillsOf(developer);
                         developers.add(developer);
                     }
-                    LOG.info("Finding developers in DB was successful.");
+                    LOG.info("Search developers in DB has been successful.");
                     return developers;
                 }
             }
@@ -176,7 +176,7 @@ public class JdbcDeveloperDAOImpl implements DeveloperDAO {
                 preparedStatement.setInt(1, id);
                 preparedStatement.execute();
             }
-            LOG.info("Developer was successfully deleted.");
+            LOG.info("Developer has been successfully deleted.");
         } catch (SQLException e) {
             LOG.error("Exception occurred while deleting developer by id.", e);
         }
@@ -188,7 +188,7 @@ public class JdbcDeveloperDAOImpl implements DeveloperDAO {
             try (Statement statement = connection.createStatement()) {
                 statement.execute(DELETE_ALL);
             }
-            LOG.info("All developers were successfully deleted.");
+            LOG.info("All developers has been successfully deleted.");
         } catch (SQLException e) {
             LOG.error("Exception occurred while deleting all developers.", e);
         }
@@ -223,7 +223,7 @@ public class JdbcDeveloperDAOImpl implements DeveloperDAO {
                     preparedStatement.execute();
                 }
             }
-            LOG.info("Adding skills to developer was successful.");
+            LOG.info("Adding skills to developer has been successful.");
         } catch (SQLException e) {
             LOG.error("Exception occurred while adding skills to developer.", e);
         }
@@ -242,7 +242,7 @@ public class JdbcDeveloperDAOImpl implements DeveloperDAO {
                     developer.setSkills(skills);
                 }
             }
-            LOG.info("Retrieving skills of developer from DB was successful.");
+            LOG.info("Retrieving skills of developer from DB has been successful.");
         } catch (SQLException e) {
             LOG.error("Exception occurred while retrieving skills of developer from DB.", e);
         }
