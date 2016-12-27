@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "skills")
+@Table(name = "pms.skills")
 @AttributeOverride(name = "name", column = @Column(name = Skill.NAME))
 public class Skill extends NamedEntity {
 

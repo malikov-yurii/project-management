@@ -11,8 +11,6 @@ interface AbstractDAO<T> {
 
     List<T> findAll();
 
-    void delete(T t);
-
     void deleteById(int id);
 
     void deleteAll();

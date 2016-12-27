@@ -5,9 +5,14 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Set;
-
+@NamedQueries({
+        @NamedQuery(name = Developer.DELETE, query = "DELETE FROM Developer d WHERE d.id=:id"),
+        @NamedQuery(name = Developer.DELETE_ALL, query = "DELETE FROM Developer d"),
+        @NamedQuery(name = Developer.LOAD_BY_LAST_NAME, query = "SELECT Developer d WHERE d.lastName=:name"),
+        @NamedQuery(name = Developer.LOAD_ALL, query = "SELECT Developer d"),
+})
 @Entity
-@Table(name = "developers")
+@Table(name = "pms.developers")
 @AttributeOverride(name = "name", column = @Column(name = Developer.FIRST_NAME))
 public class Developer extends NamedEntity {
 
@@ -16,6 +21,14 @@ public class Developer extends NamedEntity {
     public static final String LAST_NAME = "last_name";
 
     public static final String COMPANY_ID = "company_id";
+
+    public static final String DELETE = "Developer.delete";
+
+    public static final String DELETE_ALL = "Developer.deleteAll";
+
+    public static final String LOAD_BY_LAST_NAME = "Developer.loadByName";
+
+    public static final String LOAD_ALL = "Developer.loadAll";
 
     @Column(name = Developer.LAST_NAME)
     private String lastName;

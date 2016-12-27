@@ -8,6 +8,10 @@
 
     <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
 
+    <bean id="HUtils" class="ua.com.malikov.dao.hibernate.HUtils">
+        <property name="emf" ref="entityManagerFactory"/>
+    </bean>
+
     <bean id="main" class="ua.com.malikov.view.Main" init-method="init">
         <property name="reInit" value="true"/>
         <property name="dataSource" ref="dataSource"/>
@@ -24,7 +28,8 @@
     <!--</bean>-->
 
     <bean id="companyDAO" class="ua.com.malikov.dao.hibernate.HCompanyDAOImpl">
-        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="emf" ref="entityManagerFactory"/>
+        <property name="hUtils" ref="HUtils"/>
     </bean>
 
     <!--<bean id="customerDAO" class="ua.com.malikov.dao.jdbc.JdbcCustomerDAOImpl">-->
@@ -32,7 +37,8 @@
     <!--</bean>-->
 
     <bean id="customerDAO" class="ua.com.malikov.dao.hibernate.HCustomerDAOImpl">
-        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="emf" ref="entityManagerFactory"/>
+        <property name="hUtils" ref="HUtils"/>
     </bean>
 
     <!--<bean id="developerDAO" class="JdbcDeveloperDAOImpl">-->
@@ -42,7 +48,8 @@
     <!--</bean>-->
 
     <bean id="developerDAO" class="ua.com.malikov.dao.hibernate.HDeveloperDAOImpl">
-        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="emf" ref="entityManagerFactory"/>
+        <property name="hUtils" ref="HUtils"/>
     </bean>
 
     <!--<bean id="projectDAO" class="ua.com.malikov.dao.jdbc.JdbcProjectDAOImpl">-->
@@ -53,7 +60,8 @@
     <!--</bean>-->
 
     <bean id="projectDAO" class="ua.com.malikov.dao.hibernate.HProjectDAOImpl">
-        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="emf" ref="entityManagerFactory"/>
+        <property name="hUtils" ref="HUtils"/>
     </bean>
 
     <!--<bean id="skillDAO" class="ua.com.malikov.dao.jdbc.JdbcSkillDAOImpl">-->
@@ -61,7 +69,8 @@
     <!--</bean>-->
 
     <bean id="skillDAO" class="ua.com.malikov.dao.hibernate.HSkillDAOImpl">
-        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="emf" ref="entityManagerFactory"/>
+        <property name="hUtils" ref="HUtils"/>
     </bean>
 
     <bean id="companyController" class="ua.com.malikov.controller.CompanyController" >
