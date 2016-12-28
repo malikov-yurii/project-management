@@ -41,11 +41,6 @@ public class JdbcProjectDAOImpl implements ProjectDAO {
 
     private static final String ADD_DEVELOPERS_TO_PROJECT = "INSERT INTO pms.projects_developers(developer_id, project_id) VALUES (?,?)";
 
-    @Override
-    public void delete(Project project) {
-        deleteById(project.getId());
-    }
-
     private static final String DELETE_ALL = "DELETE FROM pms.projects CASCADE";
 
     private static final String GET_DEVS_BY_PROJECT_ID = "SELECT developer_id FROM pms.projects_developers WHERE project_id = ?";

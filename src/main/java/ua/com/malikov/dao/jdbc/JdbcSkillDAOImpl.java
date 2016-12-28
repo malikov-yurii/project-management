@@ -141,11 +141,6 @@ public class JdbcSkillDAOImpl implements SkillDAO {
     }
 
     @Override
-    public void delete(Skill skill) {
-        deleteById(skill.getId());
-    }
-
-    @Override
     public void deleteById(int id) {
         try (Connection connection = dataSource.getConnection()) {
             try( PreparedStatement preparedStatement =
