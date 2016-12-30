@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import java.util.List;
 
-class HUtils {
+public abstract class HUtils{
 
     private EntityManagerFactory emf;
 
@@ -42,7 +42,7 @@ class HUtils {
         return t;
     }
 
-    public <T extends NamedEntity> List<T> findAll(String hql, Logger LOG) {
+    <T extends NamedEntity> List<T> findAll(String hql, Logger LOG) {
         List<T> resultList = (List<T>) getEntityManager().createQuery(hql).getResultList();
         if (resultList == null) {
             LOG.error("Search for all entities has failed.");
@@ -53,7 +53,7 @@ class HUtils {
         return resultList;
     }
 
-    public <T extends NamedEntity> void deleteById(int id, String hql, Logger LOG) {
+    <T extends NamedEntity> void deleteById(int id, String hql, Logger LOG) {
         Query query = getEntityManager().createNamedQuery(hql);
         query.setParameter("id", id);
         if (query.executeUpdate() == 1) {
@@ -72,7 +72,7 @@ class HUtils {
         }
     }
 
-    public <T extends NamedEntity> T loadByName(String name, String hql, Logger LOG) {
+    <T extends NamedEntity> T loadByName(String name, String hql, Logger LOG) {
         Query query = getEntityManager().createNamedQuery(hql);
         query.setParameter("name", name);
         T t = (T) query.getSingleResult();

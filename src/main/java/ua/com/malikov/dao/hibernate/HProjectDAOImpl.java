@@ -1,78 +1,57 @@
 package ua.com.malikov.dao.hibernate;
 
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
-import org.springframework.transaction.annotation.Transactional;
 import ua.com.malikov.dao.ProjectDAO;
 import ua.com.malikov.model.Developer;
 import ua.com.malikov.model.Project;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class HProjectDAOImpl implements ProjectDAO{
 
-    private EntityManagerFactory emf;
-
     private static final Logger LOG = getLogger(HProjectDAOImpl.class);
 
+    private HUtils hUtils;
+
+    public void sethUtils(HUtils hUtils) {
+        this.hUtils = hUtils;
+    }
+
     @Override
-    @Transactional
     public Project save(Project project) {
-        return HUtils.save(project, sessionFactory.getCurrentSession(), LOG);
+        return hUtils.save(project, LOG);
     }
 
     @Override
-    @Transactional
     public void saveAll(List<Project> projects) {
-        HUtils.saveAll(projects, sessionFactory.getCurrentSession(), LOG);
+        hUtils.saveAll(projects, LOG);
     }
 
     @Override
-    @Transactional
     public Project load(int id) {
-        return HUtils.loadById(Project.class, id, sessionFactory.getCurrentSession(), LOG);
+        return hUtils.loadById(Project.class, id, LOG);
     }
 
     @Override
-    @Transactional
     public List<Project> findAll() {
-        return HUtils.findAll("from Project", sessionFactory.getCurrentSession(), LOG);
+        return hUtils.findAll(Project.LOAD_ALL, LOG);
     }
 
     @Override
-    @Transactional
     public void addDevToProject(Developer developer, Project project) {
         project.getDevelopers().add(developer);
         save(project);
     }
 
     @Override
-    @Transactional
-    public void delete(Project project) {
-        HUtils.delete(project, sessionFactory.getCurrentSession(), LOG);
-    }
-
-    @Override
-    @Transactional
     public void deleteById(int id) {
-        HUtils.deleteById(id, "delete Project where id=:id",
-                sessionFactory.getCurrentSession(), LOG);
+        hUtils.deleteById(id, Project.DELETE_BY_ID, LOG);
     }
 
     @Override
-    @Transactional
     public void deleteAll() {
-        HUtils.deleteAll("delete Project", sessionFactory.getCurrentSession(), LOG);
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    public void setEmf(EntityManagerFactory emf) {
-        this.emf = emf;
+        hUtils.deleteAll(Project.DELETE_ALL, LOG);
     }
 }

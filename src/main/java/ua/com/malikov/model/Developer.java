@@ -17,17 +17,12 @@ import java.util.Set;
 public class Developer extends NamedEntity {
 
     public static final String FIRST_NAME = "first_name";
-
     public static final String LAST_NAME = "last_name";
-
     public static final String COMPANY_ID = "company_id";
 
     public static final String DELETE = "Developer.delete";
-
     public static final String DELETE_ALL = "Developer.deleteAll";
-
     public static final String LOAD_BY_LAST_NAME = "Developer.loadByName";
-
     public static final String LOAD_ALL = "Developer.loadAll";
 
     @Column(name = Developer.LAST_NAME)

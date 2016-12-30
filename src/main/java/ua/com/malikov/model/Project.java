@@ -6,6 +6,12 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.util.Set;
 
+@NamedQueries({
+        @NamedQuery(name = Project.DELETE_BY_ID, query = "DELETE Project p WHERE p.id=:id"),
+        @NamedQuery(name = Project.DELETE_ALL, query = "DELETE Project"),
+        @NamedQuery(name = Project.LOAD_BY_NAME, query = "SELECT FROM Project p WHERE p.name=:name"),
+        @NamedQuery(name = Project.LOAD_ALL, query = "SELECT  Project p")
+})
 @Entity
 @Table(name = "pms.projects")
 @AttributeOverride(name = "name", column = @Column(name = Project.NAME))
@@ -15,6 +21,11 @@ public class Project extends NamedEntity {
     public static final String CUSTOMER_ID = "customer_id";
     public static final String NAME = "project_name";
     public static final String COST = "cost";
+
+    public static final String LOAD_BY_NAME = "Project.byName";
+    public static final String LOAD_ALL = "Project.loadAll";
+    public static final String DELETE_BY_ID = "Project.deleteById";
+    public static final String DELETE_ALL = "Project.deleteAll";
 
     @ManyToOne
     @Fetch(FetchMode.JOIN)
