@@ -7,10 +7,10 @@ import javax.persistence.*;
 import java.util.Set;
 
 @NamedQueries({
-        @NamedQuery(name = Company.DELETE_BY_ID, query = "DELETE Company WHERE c.id=:id"),
-        @NamedQuery(name = Company.DELETE_ALL, query = "DELETE Company"),
-        @NamedQuery(name = Company.LOAD_BY_NAME, query = "SELECT FROM Company c WHERE c.name=:name"),
-        @NamedQuery(name = Company.LOAD_ALL, query = "SELECT  Company c"),
+        @NamedQuery(name = Company.DELETE_BY_ID, query = "DELETE FROM Company c WHERE c.id=:id"),
+        @NamedQuery(name = Company.DELETE_ALL, query = "DELETE FROM Company"),
+        @NamedQuery(name = Company.LOAD_BY_NAME, query = "SELECT c FROM Company c WHERE c.name=:name"),
+        @NamedQuery(name = Company.LOAD_ALL, query = "SELECT c FROM Company c"),
 })
 @Entity
 @Table(name = "pms.companies")
@@ -28,6 +28,8 @@ public class Company extends NamedEntity {
     @JoinColumn(name = "company_id")
     @Fetch(FetchMode.JOIN)
     private Set<Developer> developers;
+
+    public Company() {}
 
     public Company(String name) {
         super(name);

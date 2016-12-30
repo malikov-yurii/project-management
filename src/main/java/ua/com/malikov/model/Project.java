@@ -7,10 +7,10 @@ import javax.persistence.*;
 import java.util.Set;
 
 @NamedQueries({
-        @NamedQuery(name = Project.DELETE_BY_ID, query = "DELETE Project p WHERE p.id=:id"),
-        @NamedQuery(name = Project.DELETE_ALL, query = "DELETE Project"),
-        @NamedQuery(name = Project.LOAD_BY_NAME, query = "SELECT FROM Project p WHERE p.name=:name"),
-        @NamedQuery(name = Project.LOAD_ALL, query = "SELECT  Project p")
+        @NamedQuery(name = Project.DELETE_BY_ID, query = "DELETE FROM Project p WHERE p.id=:id"),
+        @NamedQuery(name = Project.DELETE_ALL, query = "DELETE FROM Project p"),
+        @NamedQuery(name = Project.LOAD_BY_NAME, query = "SELECT p FROM Project p WHERE p.name=:name"),
+        @NamedQuery(name = Project.LOAD_ALL, query = "SELECT p FROM Project p")
 })
 @Entity
 @Table(name = "pms.projects")
@@ -43,7 +43,7 @@ public class Project extends NamedEntity {
     @ManyToMany
     @Fetch(FetchMode.JOIN)
     @JoinTable(
-            name = "projects_developers",
+            name = "pms.projects_developers",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn( name = "developer_id")
     )

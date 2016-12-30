@@ -1,6 +1,7 @@
 package ua.com.malikov.dao.hibernate;
 
 import org.slf4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.malikov.dao.SkillDAO;
 import ua.com.malikov.model.Skill;
 
@@ -19,6 +20,7 @@ public class HSkillDAOImpl implements SkillDAO {
     }
 
     @Override
+    @Transactional
     public Skill save(Skill skill) {
         return hUtils.save(skill, LOG);
     }
@@ -39,6 +41,7 @@ public class HSkillDAOImpl implements SkillDAO {
     }
 
     @Override
+    @Transactional
     public void deleteById(int id) {
         hUtils.deleteById(id, Skill.DELETE_BY_ID, LOG);
     }

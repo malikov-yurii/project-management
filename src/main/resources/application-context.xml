@@ -6,10 +6,16 @@
                           http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+    <context:annotation-config/>
+<!---->
+    <!--<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>-->
+<!---->
+    <!--<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
 
     <bean id="HUtils" class="ua.com.malikov.dao.hibernate.HUtils">
-        <property name="emf" ref="entityManagerFactory"/>
+        <!--<property name="emf" ref="entityManagerFactory"/>-->
     </bean>
 
     <bean id="main" class="ua.com.malikov.view.Main" init-method="init">
@@ -24,52 +30,47 @@
 
 
     <!--<bean id="companyDAO" class="ua.com.malikov.dao.jdbc.JdbcCompanyDAOImpl">-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--<property name="dataSource" ref="dataSource"/>-->
     <!--</bean>-->
 
     <bean id="companyDAO" class="ua.com.malikov.dao.hibernate.HCompanyDAOImpl">
-        <property name="emf" ref="entityManagerFactory"/>
         <property name="hUtils" ref="HUtils"/>
     </bean>
 
     <!--<bean id="customerDAO" class="ua.com.malikov.dao.jdbc.JdbcCustomerDAOImpl">-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--<property name="dataSource" ref="dataSource"/>-->
     <!--</bean>-->
 
     <bean id="customerDAO" class="ua.com.malikov.dao.hibernate.HCustomerDAOImpl">
-        <property name="emf" ref="entityManagerFactory"/>
         <property name="hUtils" ref="HUtils"/>
     </bean>
 
     <!--<bean id="developerDAO" class="JdbcDeveloperDAOImpl">-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
-        <!--<property name="companyDAO" ref="companyDAO"/>-->
-        <!--<property name="skillDAO" ref="skillDAO"/>-->
+    <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--<property name="companyDAO" ref="companyDAO"/>-->
+    <!--<property name="skillDAO" ref="skillDAO"/>-->
     <!--</bean>-->
 
     <bean id="developerDAO" class="ua.com.malikov.dao.hibernate.HDeveloperDAOImpl">
-        <property name="emf" ref="entityManagerFactory"/>
         <property name="hUtils" ref="HUtils"/>
     </bean>
 
     <!--<bean id="projectDAO" class="ua.com.malikov.dao.jdbc.JdbcProjectDAOImpl">-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
-        <!--<property name="developerDAO" ref="developerDAO"/>-->
-        <!--<property name="companyDAO" ref="companyDAO"/>-->
-        <!--<property name="customerDAO" ref="customerDAO"/>-->
+    <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--<property name="developerDAO" ref="developerDAO"/>-->
+    <!--<property name="companyDAO" ref="companyDAO"/>-->
+    <!--<property name="customerDAO" ref="customerDAO"/>-->
     <!--</bean>-->
 
     <bean id="projectDAO" class="ua.com.malikov.dao.hibernate.HProjectDAOImpl">
-        <property name="emf" ref="entityManagerFactory"/>
         <property name="hUtils" ref="HUtils"/>
     </bean>
 
     <!--<bean id="skillDAO" class="ua.com.malikov.dao.jdbc.JdbcSkillDAOImpl">-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--<property name="dataSource" ref="dataSource"/>-->
     <!--</bean>-->
 
     <bean id="skillDAO" class="ua.com.malikov.dao.hibernate.HSkillDAOImpl">
-        <property name="emf" ref="entityManagerFactory"/>
         <property name="hUtils" ref="HUtils"/>
     </bean>
 
@@ -95,9 +96,6 @@
         <property name="skillDAO" ref="skillDAO"/>
     </bean>
 
-    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
 
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" >

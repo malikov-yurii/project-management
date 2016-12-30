@@ -8,8 +8,8 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = Developer.DELETE, query = "DELETE FROM Developer d WHERE d.id=:id"),
         @NamedQuery(name = Developer.DELETE_ALL, query = "DELETE FROM Developer d"),
-        @NamedQuery(name = Developer.LOAD_BY_LAST_NAME, query = "SELECT Developer d WHERE d.lastName=:name"),
-        @NamedQuery(name = Developer.LOAD_ALL, query = "SELECT Developer d"),
+        @NamedQuery(name = Developer.LOAD_BY_LAST_NAME, query = "SELECT d FROM Developer d WHERE d.name=:name"),
+        @NamedQuery(name = Developer.LOAD_ALL, query = "SELECT d FROM Developer d"),
 })
 @Entity
 @Table(name = "pms.developers")
@@ -35,7 +35,7 @@ public class Developer extends NamedEntity {
     @ManyToMany
     @Fetch(FetchMode.JOIN)
     @JoinTable(
-            name = "developers_skills",
+            name = "pms.developers_skills",
             joinColumns = @JoinColumn(name = "developer_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
