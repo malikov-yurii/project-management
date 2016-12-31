@@ -1,6 +1,5 @@
 package ua.com.malikov.view;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -10,12 +9,9 @@ import ua.com.malikov.service.*;
 
 import javax.sql.DataSource;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,20 +36,6 @@ public class Main {
             appCtx.refresh();
             Main main = appCtx.getBean(Main.class);
             main.start();
-        }
-    }
-
-    private void init() {
-        if (reInit) {
-            try (FileInputStream inputStreamForInit = new FileInputStream("sql/initDB.sql");
-                 FileInputStream inputStreamForPopulate = new FileInputStream("sql/populateDB.sql");
-                 Connection conn = dataSource.getConnection();
-                 Statement statement = conn.createStatement()) {
-                statement.executeUpdate(IOUtils.toString(inputStreamForInit));
-                statement.executeUpdate(IOUtils.toString(inputStreamForPopulate));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
