@@ -32,7 +32,10 @@ public class JdbcDeveloperDAOImpl implements DeveloperDAO {
     private static final String GET_ALL = "SELECT * FROM pms.developers";
 
     private static final String DELETE_BY_ID = String.format(
-            "DELETE FROM pms.developers WHERE %s = ?", Developer.ID);;
+            "DELETE FROM pms.developers WHERE %s = ?", Developer.ID);
+
+    private static final String GET_BY_LAST_NAME = String.format(
+            "DELETE FROM pms.developers WHERE %s = ?", Developer.LAST_NAME);
 
     private static final String DELETE_SKILLS_FROM_DEVELOPER =
             "DELETE FROM pms.developers_skills WHERE developer_id = ?";
@@ -129,7 +132,31 @@ public class JdbcDeveloperDAOImpl implements DeveloperDAO {
                     if (resultSet.next()) {
                         developer = createDeveloper(resultSet);
                         retrieveSkillsOf(developer);
-                        LOG.info("Developer " + developer + " has beensuccessfully loaded from DB.");
+                        LOG.info("Developer " + developer + " has been successfully loaded from DB by ID.");
+                        return developer;
+                    } else {
+                        LOG.info("Developer was not found.");
+                        return null;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            LOG.error("Exception occurred while loading developer by id.", e);
+            return null;
+        }
+    }
+
+    @Override
+    public Developer load(String lastName) {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_LAST_NAME)) {
+                preparedStatement.setString(1, lastName);
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    Developer developer;
+                    if (resultSet.next()) {
+                        developer = createDeveloper(resultSet);
+                        retrieveSkillsOf(developer);
+                        LOG.info("Developer " + developer + " has been successfully loaded from DB by lastName.");
                         return developer;
                     } else {
                         LOG.info("Developer was not found.");

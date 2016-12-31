@@ -9,6 +9,8 @@ interface AbstractDAO<T> {
 
     T load(int id);
 
+    T load(String name);
+
     List<T> findAll();
 
     void deleteById(int id);

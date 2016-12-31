@@ -23,7 +23,7 @@ public class SkillService extends AbstractService<Skill> {
 
     @Transactional
     public Skill getByName(String name){
-        return skillDAO.getByName(name);
+        return skillDAO.load(name);
     }
 
     @Override

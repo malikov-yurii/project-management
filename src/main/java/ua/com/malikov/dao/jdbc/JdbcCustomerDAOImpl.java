@@ -166,7 +166,7 @@ public class JdbcCustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer load(String name) throws SQLException {
+    public Customer load(String name){
         try (Connection connection = getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(GET_BY_NAME)) {
                 ps.setString(1, name);

@@ -5,7 +5,6 @@ import ua.com.malikov.dao.CustomerDAO;
 import ua.com.malikov.model.Company;
 import ua.com.malikov.model.Customer;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -36,7 +35,7 @@ public class JpaCustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer load(String name) throws SQLException {
+    public Customer load(String name) {
         return jpaUtils.loadByName(name, Customer.LOAD_BY_NAME, LOG);
     }
 

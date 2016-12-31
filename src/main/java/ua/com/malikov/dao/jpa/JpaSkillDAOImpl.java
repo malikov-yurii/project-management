@@ -52,7 +52,7 @@ public class JpaSkillDAOImpl implements SkillDAO {
     }
 
     @Override
-    public Skill getByName(String name) {
+    public Skill load(String name) {
         return jpaUtils.loadByName(name, Skill.LOAD_BY_NAME, LOG);
     }
 }

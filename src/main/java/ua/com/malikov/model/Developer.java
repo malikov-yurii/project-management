@@ -8,7 +8,7 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = Developer.DELETE, query = "DELETE FROM Developer d WHERE d.id=:id"),
         @NamedQuery(name = Developer.DELETE_ALL, query = "DELETE FROM Developer d"),
-        @NamedQuery(name = Developer.LOAD_BY_LAST_NAME, query = "SELECT d FROM Developer d WHERE d.name=:name"),
+        @NamedQuery(name = Developer.LOAD_BY_LAST_NAME, query = "SELECT d FROM Developer d WHERE d.lastName=:lastName"),
         @NamedQuery(name = Developer.LOAD_ALL, query = "SELECT d FROM Developer d ORDER BY d.id"),
 })
 @Entity
@@ -22,7 +22,7 @@ public class Developer extends NamedEntity {
 
     public static final String DELETE = "Developer.delete";
     public static final String DELETE_ALL = "Developer.deleteAll";
-    public static final String LOAD_BY_LAST_NAME = "Developer.loadByName";
+    public static final String LOAD_BY_LAST_NAME = "Developer.loadByLastName";
     public static final String LOAD_ALL = "Developer.loadAll";
 
     @Column(name = Developer.LAST_NAME)

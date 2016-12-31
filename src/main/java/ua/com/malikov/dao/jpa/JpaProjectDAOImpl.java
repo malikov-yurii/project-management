@@ -35,6 +35,11 @@ public class JpaProjectDAOImpl implements ProjectDAO{
     }
 
     @Override
+    public Project load(String name) {
+        return jpaUtils.loadByName(name, Project.LOAD_BY_NAME, LOG);
+    }
+
+    @Override
     public List<Project> findAll() {
         return jpaUtils.findAll(Project.LOAD_ALL, LOG);
     }

@@ -33,7 +33,8 @@ public class JpaDeveloperDAOImpl implements DeveloperDAO {
         return jpaUtils.loadById(Developer.class, id, LOG);
     }
 
-    public Developer loadByLastName(String lastName) {
+    @Override
+    public Developer load(String lastName) {
         return jpaUtils.loadByName(lastName, Developer.LOAD_BY_LAST_NAME, LOG);
     }
 

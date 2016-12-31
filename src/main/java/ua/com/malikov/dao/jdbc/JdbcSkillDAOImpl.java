@@ -100,7 +100,8 @@ public class JdbcSkillDAOImpl implements SkillDAO {
         }
     }
 
-    public Skill getByName(String name){
+    @Override
+    public Skill load(String name){
         try (Connection connection = dataSource.getConnection()) {
             try( PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_NAME)){
                 preparedStatement.setString(1, name);

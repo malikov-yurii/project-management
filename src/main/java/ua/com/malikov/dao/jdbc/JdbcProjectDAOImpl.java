@@ -27,6 +27,9 @@ public class JdbcProjectDAOImpl implements ProjectDAO {
     private static final String GET_BY_ID = String.format("SELECT * FROM pms.projects WHERE %s = ?",
             Project.ID);
 
+    private static final String GET_BY_NAME = String.format("SELECT * FROM pms.projects WHERE %s = ?",
+            Project.NAME);;
+
     private static final String UPDATE_ROW = String.format(
             "UPDATE pms.projects SET %s = ?, %s = ?, %s =? WHERE %s =?",
             Project.NAME, Project.CUSTOMER_ID, Project.COMPANY_ID, Project.ID);
@@ -44,7 +47,6 @@ public class JdbcProjectDAOImpl implements ProjectDAO {
     private static final String DELETE_ALL = "DELETE FROM pms.projects CASCADE";
 
     private static final String GET_DEVS_BY_PROJECT_ID = "SELECT developer_id FROM pms.projects_developers WHERE project_id = ?";
-
     private static final Logger LOG = LoggerFactory.getLogger(ProjectDAO.class);
 
     private CompanyDAO companyDAO;
@@ -198,6 +200,26 @@ public class JdbcProjectDAOImpl implements ProjectDAO {
             }
         } catch (SQLException e) {
             LOG.error("Exception occurred while loading project.", e);
+            return null;
+        }
+    }
+
+    @Override
+    public Project load(String name){
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(GET_BY_NAME)) {
+                ps.setString(1, name);
+                try (ResultSet resultSet = ps.executeQuery()) {
+                    if (!resultSet.next()) {
+                        LOG.info("Loading customer by name has failed.");
+                        return null;
+                    }
+                    LOG.info("Customer has been successfully loaded by name.");
+                    return new Project(resultSet.getInt(Project.ID), resultSet.getString(Project.NAME));
+                }
+            }
+        } catch (SQLException e) {
+            LOG.error("Exception occurred while loading customer by name.", e);
             return null;
         }
     }
