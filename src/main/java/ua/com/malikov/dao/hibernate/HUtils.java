@@ -73,12 +73,13 @@ public class HUtils {
     <T extends NamedEntity> T loadByName(String name, String hql, Logger LOG) {
         Query query = em.createNamedQuery(hql);
         query.setParameter("name", name);
-        T t = (T) query.getSingleResult();
-        if (t == null) {
+        try {
+            return (T) query.getSingleResult();
+        } catch (NoResultException e) {
             LOG.error("Cannot find entity by name: " + name);
-        } else {
-            LOG.error("Entity" + t.getClass().getSimpleName().toLowerCase() + " has been successfully found by name: " + name);
+        } catch (NonUniqueResultException e) {
+            LOG.error("Error! Name should be unique! Several entities has been found by name: " + name);
         }
-        return t;
+        return null;
     }
 }
