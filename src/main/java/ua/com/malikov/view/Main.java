@@ -3,10 +3,10 @@ package ua.com.malikov.view;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ua.com.malikov.controller.*;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import ua.com.malikov.Profiles;
 import ua.com.malikov.model.*;
+import ua.com.malikov.service.*;
 
 import javax.sql.DataSource;
 import java.io.BufferedReader;
@@ -25,18 +25,22 @@ public class Main {
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private boolean reInit;
 
-    private CompanyController companyController;
-    private CustomerController customerController;
-    private DeveloperController developerController;
-    private ProjectController projectController;
-    private SkillController skillController;
+    private CompanyService companyController;
+    private CustomerService customerController;
+    private DeveloperService developerController;
+    private ProjectService projectController;
+    private SkillService skillController;
 
     private DataSource dataSource;
 
     public static void main(String[] args) throws Exception {
-        ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml", "hibernate-context.xml");
-        Main main = context.getBean(Main.class);
-        main.start();
+        try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
+            appCtx.getEnvironment().setActiveProfiles(Profiles.ACTIVE_DB_IMPLEMENTATION);
+            appCtx.load("spring/spring-app.xml", "spring/spring-db.xml");
+            appCtx.refresh();
+            Main main = appCtx.getBean(Main.class);
+            main.start();
+        }
     }
 
     private void init() {
@@ -484,7 +488,7 @@ public class Main {
     }
 
     //  that is temporary method, we can do that work in one query to database
-    private <T> void deleteEntityById(String tableName, Integer id, AbstractController<T> controller) throws SQLException {
+    private <T> void deleteEntityById(String tableName, Integer id, AbstractService<T> controller) throws SQLException {
         T t = controller.get(id);
         if (t != null) {
             controller.delete(id);
@@ -494,7 +498,7 @@ public class Main {
         }
     }
 
-    private <T extends NamedEntity> void updateAndPrintEntityRetrievedByIdInputedFromConsole(Integer id, AbstractController<T> controller) throws IOException, SQLException {
+    private <T extends NamedEntity> void updateAndPrintEntityRetrievedByIdInputedFromConsole(Integer id, AbstractService<T> controller) throws IOException, SQLException {
         T t = controller.get(id);
         if (t != null) {
             System.out.println("Entity for update:\n" + t);
@@ -512,7 +516,7 @@ public class Main {
         return br.readLine();
     }
 
-    private <T> void readAllRowsFromTable(AbstractController<T> controller) throws SQLException {
+    private <T> void readAllRowsFromTable(AbstractService<T> controller) throws SQLException {
         List<T> entities = controller.getAll();
         if (entities.size() > 0) {
             entities.forEach(System.out::println);
@@ -521,7 +525,7 @@ public class Main {
         }
     }
 
-    private <T> void printEntityById(Integer id, AbstractController<T> controller) throws SQLException {
+    private <T> void printEntityById(Integer id, AbstractService<T> controller) throws SQLException {
         T entity = controller.get(id);
         System.out.println(entity != null ? "Successful reading of entity by id: " + entity : "Sorry, bad id.");
     }
@@ -614,23 +618,23 @@ public class Main {
         return null;
     }
 
-    public void setCompanyController(CompanyController companyController) {
+    public void setCompanyController(CompanyService companyController) {
         this.companyController = companyController;
     }
 
-    public void setCustomerController(CustomerController customerController) {
+    public void setCustomerController(CustomerService customerController) {
         this.customerController = customerController;
     }
 
-    public void setDeveloperController(DeveloperController developerController) {
+    public void setDeveloperController(DeveloperService developerController) {
         this.developerController = developerController;
     }
 
-    public void setProjectController(ProjectController projectController) {
+    public void setProjectController(ProjectService projectController) {
         this.projectController = projectController;
     }
 
-    public void setSkillController(SkillController skillController) {
+    public void setSkillController(SkillService skillController) {
         this.skillController = skillController;
     }
 

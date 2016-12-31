@@ -1,4 +1,4 @@
-package ua.com.malikov.controller;
+package ua.com.malikov.service;
 
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.malikov.dao.CustomerDAO;
@@ -7,7 +7,7 @@ import ua.com.malikov.model.Customer;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CustomerController extends AbstractController<Customer> {
+public class CustomerService extends AbstractService<Customer> {
 
     private CustomerDAO customerDAO;
 

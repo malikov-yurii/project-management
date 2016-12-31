@@ -1,4 +1,4 @@
-package ua.com.malikov.controller;
+package ua.com.malikov.service;
 
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.malikov.dao.SkillDAO;
@@ -6,7 +6,7 @@ import ua.com.malikov.model.Skill;
 
 import java.util.List;
 
-public class SkillController extends AbstractController<Skill> {
+public class SkillService extends AbstractService<Skill> {
 
     private SkillDAO skillDAO;
 

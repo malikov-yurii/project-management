@@ -1,4 +1,4 @@
-package ua.com.malikov.dao.hibernate;
+package ua.com.malikov.dao.jpa;
 
 import org.slf4j.Logger;
 import ua.com.malikov.dao.CustomerDAO;
@@ -10,48 +10,48 @@ import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class HCustomerDAOImpl implements CustomerDAO {
+public class JpaCustomerDAOImpl implements CustomerDAO {
 
-    private HUtils hUtils;
+    private JpaUtils jpaUtils;
 
-    public void sethUtils(HUtils hUtils) {
-        this.hUtils = hUtils;
+    public void setJpaUtils(JpaUtils jpaUtils) {
+        this.jpaUtils = jpaUtils;
     }
 
-    private static final Logger LOG = getLogger(HCustomerDAOImpl.class);
+    private static final Logger LOG = getLogger(JpaCustomerDAOImpl.class);
 
     @Override
     public Customer save(Customer customer) {
-        return hUtils.save(customer, LOG);
+        return jpaUtils.save(customer, LOG);
     }
 
     @Override
     public void saveAll(List<Customer> customers) {
-        hUtils.saveAll(customers, LOG);
+        jpaUtils.saveAll(customers, LOG);
     }
 
     @Override
     public Customer load(int id) {
-        return hUtils.loadById(Customer.class, id, LOG);
+        return jpaUtils.loadById(Customer.class, id, LOG);
     }
 
     @Override
     public Customer load(String name) throws SQLException {
-        return hUtils.loadByName(name, Customer.LOAD_BY_NAME, LOG);
+        return jpaUtils.loadByName(name, Customer.LOAD_BY_NAME, LOG);
     }
 
     @Override
     public List<Customer> findAll() {
-        return hUtils.findAll(Customer.LOAD_ALL, LOG);
+        return jpaUtils.findAll(Customer.LOAD_ALL, LOG);
     }
 
     @Override
     public void deleteById(int id) {
-        hUtils.deleteById(id, Customer.DELETE_BY_ID, LOG);
+        jpaUtils.deleteById(id, Customer.DELETE_BY_ID, LOG);
     }
 
     @Override
     public void deleteAll() {
-        hUtils.deleteAll(Company.DELETE_ALL, LOG);
+        jpaUtils.deleteAll(Company.DELETE_ALL, LOG);
     }
 }

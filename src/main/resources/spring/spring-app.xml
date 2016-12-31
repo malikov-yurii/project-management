@@ -1,0 +1,46 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <import resource="spring-tools.xml"/>
+    <!--<import resource="spring-security.xml"/>-->
+
+    <context:annotation-config/>
+
+    <bean id="main" class="ua.com.malikov.view.Main">
+    <!--<bean id="main" class="ua.com.malikov.view.Main" init-method="init">-->
+        <property name="reInit" value="true"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="companyController" ref="companyController"/>
+        <property name="customerController" ref="customerController"/>
+        <property name="developerController" ref="developerController"/>
+        <property name="projectController" ref="projectController"/>
+        <property name="skillController" ref="skillController"/>
+    </bean>
+
+    <bean id="companyController" class="ua.com.malikov.service.CompanyService" >
+        <property name="companyDAO" ref="companyDAO"/>
+        <property name="developerDAO" ref="developerDAO"/>
+
+    </bean>
+
+    <bean id="customerController" class="ua.com.malikov.service.CustomerService" >
+        <property name="customerDAO" ref="customerDAO"/>
+    </bean>
+
+    <bean id="developerController" class="ua.com.malikov.service.DeveloperService" >
+        <property name="developerDAO" ref="developerDAO"/>
+    </bean>
+
+    <bean id="projectController" class="ua.com.malikov.service.ProjectService" >
+        <property name="projectDAO" ref="projectDAO"/>
+    </bean>
+
+    <bean id="skillController" class="ua.com.malikov.service.SkillService" >
+        <property name="skillDAO" ref="skillDAO"/>
+    </bean>
+
+    <context:component-scan base-package="ua.com.malikov.**.service"/>
+</beans>

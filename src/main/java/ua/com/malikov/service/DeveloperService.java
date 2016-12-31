@@ -1,4 +1,4 @@
-package ua.com.malikov.controller;
+package ua.com.malikov.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +12,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class DeveloperController extends AbstractController<Developer> {
+public class DeveloperService extends AbstractService<Developer> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DeveloperController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeveloperService.class);
 
     private DeveloperDAO developerDAO;
 

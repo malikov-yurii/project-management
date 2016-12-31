@@ -1,4 +1,4 @@
-package ua.com.malikov.dao.hibernate;
+package ua.com.malikov.dao.jpa;
 
 import org.slf4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,7 +7,7 @@ import ua.com.malikov.model.NamedEntity;
 import javax.persistence.*;
 import java.util.List;
 
-public class HUtils {
+public class JpaUtils {
 
     @PersistenceContext
     private EntityManager em;

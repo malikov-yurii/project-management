@@ -45,7 +45,7 @@ INSERT INTO pms.skills
 VALUES
 	('Java'),
 	('SQL'),
-	('Spring'),
+	('spring'),
 	('Junit'),
 	('Maven');
 

@@ -1,4 +1,4 @@
-package ua.com.malikov.dao.hibernate;
+package ua.com.malikov.dao.jpa;
 
 import org.slf4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,50 +9,50 @@ import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class HSkillDAOImpl implements SkillDAO {
+public class JpaSkillDAOImpl implements SkillDAO {
 
-    private static final Logger LOG = getLogger(HSkillDAOImpl.class);
+    private static final Logger LOG = getLogger(JpaSkillDAOImpl.class);
 
-    private HUtils hUtils;
+    private JpaUtils jpaUtils;
 
-    public void sethUtils(HUtils hUtils) {
-        this.hUtils = hUtils;
+    public void setJpaUtils(JpaUtils jpaUtils) {
+        this.jpaUtils = jpaUtils;
     }
 
     @Override
     @Transactional
     public Skill save(Skill skill) {
-        return hUtils.save(skill, LOG);
+        return jpaUtils.save(skill, LOG);
     }
 
     @Override
     public void saveAll(List<Skill> skills) {
-        hUtils.saveAll(skills, LOG);
+        jpaUtils.saveAll(skills, LOG);
     }
 
     @Override
     public Skill load(int id) {
-        return hUtils.loadById(Skill.class, id, LOG);
+        return jpaUtils.loadById(Skill.class, id, LOG);
     }
 
     @Override
     public List<Skill> findAll() {
-        return hUtils.findAll(Skill.LOAD_ALL, LOG);
+        return jpaUtils.findAll(Skill.LOAD_ALL, LOG);
     }
 
     @Override
     @Transactional
     public void deleteById(int id) {
-        hUtils.deleteById(id, Skill.DELETE_BY_ID, LOG);
+        jpaUtils.deleteById(id, Skill.DELETE_BY_ID, LOG);
     }
 
     @Override
     public void deleteAll() {
-        hUtils.deleteAll(Skill.DELETE_ALL, LOG);
+        jpaUtils.deleteAll(Skill.DELETE_ALL, LOG);
     }
 
     @Override
     public Skill getByName(String name) {
-        return hUtils.loadByName(name, Skill.LOAD_BY_NAME, LOG);
+        return jpaUtils.loadByName(name, Skill.LOAD_BY_NAME, LOG);
     }
 }

@@ -1,4 +1,4 @@
-package ua.com.malikov.controller;
+package ua.com.malikov.service;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +9,7 @@ import ua.com.malikov.model.Project;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProjectController  extends AbstractController<Project> {
+public class ProjectService extends AbstractService<Project> {
 
     private ProjectDAO projectDAO;
     @Transactional

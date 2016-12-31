@@ -1,4 +1,4 @@
-package ua.com.malikov.controller;
+package ua.com.malikov.service;
 
 import org.slf4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,9 +12,9 @@ import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class CompanyController extends AbstractController<Company> {
+public class CompanyService extends AbstractService<Company> {
 
-    private static final Logger LOG = getLogger(CompanyController.class);
+    private static final Logger LOG = getLogger(CompanyService.class);
 
     private CompanyDAO companyDAO;
     private DeveloperDAO developerDAO;

@@ -1,4 +1,4 @@
-package ua.com.malikov.controller;
+package ua.com.malikov.service;
 
 import org.slf4j.Logger;
 import ua.com.malikov.model.NamedEntity;
@@ -8,9 +8,9 @@ import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public abstract class AbstractController<T> {
+public abstract class AbstractService<T> {
 
-    private static final Logger LOG = getLogger(AbstractController.class);
+    private static final Logger LOG = getLogger(AbstractService.class);
 
     public abstract T add(T t) throws SQLException;
 

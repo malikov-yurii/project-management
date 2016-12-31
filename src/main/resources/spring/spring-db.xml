@@ -1,0 +1,131 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+">
+
+    <context:annotation-config/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:db/postgres.properties"/>
+    </bean>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver.class}"/>
+        <property name="jdbcUrl" value="${database.url}"/>
+        <property name="user" value="${database.user}"/>
+        <property name="password" value="${database.password}"/>
+        <property name="maxPoolSize" value="${jdbc.max.connections}"/>
+        <property name="minPoolSize" value="${jdbc.min.connections}"/>
+        <property name="acquireIncrement" value="${jdbc.acquire.increment}"/>
+
+    </bean>
+
+
+    <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
+        <jdbc:script location="classpath:db/${jdbc.initLocation}"/>
+        <jdbc:script encoding="utf-8" location="classpath:db/${jdbc.populateLocation}"/>
+    </jdbc:initialize-database>
+
+    <!-- Choose profile from (jdbc,jpa) -->
+
+    <tx:annotation-driven/>
+
+    <beans profile="jdbc">
+        <bean id="skillDAO" class="ua.com.malikov.dao.jdbc.JdbcSkillDAOImpl">
+            <property name="dataSource" ref="dataSource"/>
+        </bean>
+
+        <bean id="projectDAO" class="ua.com.malikov.dao.jdbc.JdbcProjectDAOImpl">
+            <property name="dataSource" ref="dataSource"/>
+            <property name="developerDAO" ref="developerDAO"/>
+            <property name="companyDAO" ref="companyDAO"/>
+            <property name="customerDAO" ref="customerDAO"/>
+        </bean>
+
+        <bean id="developerDAO" class="ua.com.malikov.dao.jdbc.JdbcDeveloperDAOImpl">
+            <property name="dataSource" ref="dataSource"/>
+            <property name="companyDAO" ref="companyDAO"/>
+            <property name="skillDAO" ref="skillDAO"/>
+        </bean>
+
+        <bean id="customerDAO" class="ua.com.malikov.dao.jdbc.JdbcCustomerDAOImpl">
+            <property name="dataSource" ref="dataSource"/>
+        </bean>
+
+        <bean id="companyDAO" class="ua.com.malikov.dao.jdbc.JdbcCompanyDAOImpl">
+            <property name="dataSource" ref="dataSource"/>
+        </bean>
+
+
+        <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+
+        <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSource"/>
+        </bean>
+    </beans>
+
+
+    <beans profile="jpa">
+
+        <bean id="JpaUtils" class="ua.com.malikov.dao.jpa.JpaUtils">
+        </bean>
+
+        <bean id="companyDAO" class="ua.com.malikov.dao.jpa.JpaCompanyDAOImpl">
+            <property name="jpaUtils" ref="JpaUtils"/>
+        </bean>
+
+        <bean id="customerDAO" class="ua.com.malikov.dao.jpa.JpaCustomerDAOImpl">
+            <property name="jpaUtils" ref="JpaUtils"/>
+        </bean>
+
+        <bean id="developerDAO" class="ua.com.malikov.dao.jpa.JpaDeveloperDAOImpl">
+            <property name="jpaUtils" ref="JpaUtils"/>
+        </bean>
+
+        <bean id="projectDAO" class="ua.com.malikov.dao.jpa.JpaProjectDAOImpl">
+            <property name="jpaUtils" ref="JpaUtils"/>
+        </bean>
+
+        <bean id="skillDAO" class="ua.com.malikov.dao.jpa.JpaSkillDAOImpl">
+            <property name="jpaUtils" ref="JpaUtils"/>
+        </bean>
+
+        <context:annotation-config/>
+
+        <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+              p:entityManagerFactory-ref="entityManagerFactory"/>
+
+        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+              p:dataSource-ref="dataSource"
+              p:packagesToScan="ua.com.malikov.model">
+            <property name="jpaPropertyMap">
+                <map>
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="true"/>
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}"
+                           value="true"/>
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> <!--default-->
+                </map>
+            </property>
+
+            <property name="jpaVendorAdapter">
+                <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+                      p:showSql="true">
+                </bean>
+            </property>
+        </bean>
+
+        <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="location" value="classpath:db/postgres.properties"/>
+        </bean>
+    </beans>
+</beans>

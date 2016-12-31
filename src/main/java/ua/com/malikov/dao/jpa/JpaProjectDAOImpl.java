@@ -1,4 +1,4 @@
-package ua.com.malikov.dao.hibernate;
+package ua.com.malikov.dao.jpa;
 
 import org.slf4j.Logger;
 import ua.com.malikov.dao.ProjectDAO;
@@ -9,34 +9,34 @@ import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class HProjectDAOImpl implements ProjectDAO{
+public class JpaProjectDAOImpl implements ProjectDAO{
 
-    private static final Logger LOG = getLogger(HProjectDAOImpl.class);
+    private static final Logger LOG = getLogger(JpaProjectDAOImpl.class);
 
-    private HUtils hUtils;
+    private JpaUtils jpaUtils;
 
-    public void sethUtils(HUtils hUtils) {
-        this.hUtils = hUtils;
+    public void setJpaUtils(JpaUtils jpaUtils) {
+        this.jpaUtils = jpaUtils;
     }
 
     @Override
     public Project save(Project project) {
-        return hUtils.save(project, LOG);
+        return jpaUtils.save(project, LOG);
     }
 
     @Override
     public void saveAll(List<Project> projects) {
-        hUtils.saveAll(projects, LOG);
+        jpaUtils.saveAll(projects, LOG);
     }
 
     @Override
     public Project load(int id) {
-        return hUtils.loadById(Project.class, id, LOG);
+        return jpaUtils.loadById(Project.class, id, LOG);
     }
 
     @Override
     public List<Project> findAll() {
-        return hUtils.findAll(Project.LOAD_ALL, LOG);
+        return jpaUtils.findAll(Project.LOAD_ALL, LOG);
     }
 
     @Override
@@ -47,11 +47,11 @@ public class HProjectDAOImpl implements ProjectDAO{
 
     @Override
     public void deleteById(int id) {
-        hUtils.deleteById(id, Project.DELETE_BY_ID, LOG);
+        jpaUtils.deleteById(id, Project.DELETE_BY_ID, LOG);
     }
 
     @Override
     public void deleteAll() {
-        hUtils.deleteAll(Project.DELETE_ALL, LOG);
+        jpaUtils.deleteAll(Project.DELETE_ALL, LOG);
     }
 }
