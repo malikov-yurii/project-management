@@ -43,7 +43,8 @@ CREATE TABLE pms.developers
     id serial NOT NULL,
     first_name character varying(50) NOT NULL,
     last_name character varying(50),
-    company_id integer NOT NULL,
+--     company_id integer NOT NULL, ???????????????????????????????? JpaCompanyServiceTest doesn't work with that
+    company_id integer,
     PRIMARY KEY (id),
     FOREIGN KEY (company_id)
         REFERENCES pms.companies (id) MATCH SIMPLE

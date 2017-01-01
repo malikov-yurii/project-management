@@ -30,4 +30,8 @@ public class Customer extends NamedEntity {
     public Customer(Integer id, String name) {
         super(id, name);
     }
+
+    public Customer(Customer customer) {
+        this(customer.getId(), customer.getName());
+    }
 }

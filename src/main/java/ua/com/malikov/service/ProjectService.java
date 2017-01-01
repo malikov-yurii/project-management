@@ -28,6 +28,11 @@ public class ProjectService extends AbstractService<Project> {
         return projectDAO.load(id);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Project get(String name) throws SQLException {
+        return projectDAO.load(name);
+    }
+
     @Transactional
     public List<Project> getAll() throws SQLException {
         return projectDAO.findAll();

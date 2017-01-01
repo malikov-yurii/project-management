@@ -22,7 +22,6 @@ public class DeveloperService extends AbstractService<Developer> {
     public void addSkillsToDeveloper(Set<Skill> skills, Developer developer){
         developer.setSkills(skills);
         developerDAO.save(developer);
-
     }
 
     @Override
@@ -43,6 +42,12 @@ public class DeveloperService extends AbstractService<Developer> {
     @Transactional
     public Developer get(int id) throws SQLException {
         return developerDAO.load(id);
+    }
+
+    @Override
+    @Transactional
+    public Developer get(String lastName) throws SQLException {
+        return developerDAO.load(lastName);
     }
 
     @Override

@@ -45,21 +45,27 @@ public class CompanyService extends AbstractService<Company> {
 
     @Transactional
     @Override
+    public void update(Company company) throws SQLException {
+        if (isNullThanPrintAndLogErrorMessageFor(company)) return;
+        companyDAO.save(company);
+    }
+
+    @Transactional
+    @Override
     public Company get(int id) throws SQLException {
         return companyDAO.load(id);
     }
 
     @Transactional
     @Override
-    public List<Company> getAll() throws SQLException {
-        return companyDAO.findAll();
+    public Company get(String name) throws SQLException {
+        return companyDAO.load(name);
     }
 
     @Transactional
     @Override
-    public void update(Company company) throws SQLException {
-        if (isNullThanPrintAndLogErrorMessageFor(company)) return;
-        companyDAO.save(company);
+    public List<Company> getAll() throws SQLException {
+        return companyDAO.findAll();
     }
 
     @Transactional

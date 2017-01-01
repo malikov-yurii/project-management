@@ -22,7 +22,7 @@ public class SkillService extends AbstractService<Skill> {
     public Skill get(int id){return skillDAO.load(id);}
 
     @Transactional
-    public Skill getByName(String name){
+    public Skill get(String name){
         return skillDAO.load(name);
     }
 

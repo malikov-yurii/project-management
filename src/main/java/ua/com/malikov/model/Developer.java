@@ -4,11 +4,13 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = Developer.DELETE, query = "DELETE FROM Developer d WHERE d.id=:id"),
         @NamedQuery(name = Developer.DELETE_ALL, query = "DELETE FROM Developer d"),
-        @NamedQuery(name = Developer.LOAD_BY_LAST_NAME, query = "SELECT d FROM Developer d WHERE d.lastName=:lastName"),
+//      ":name" below is not mistake - it is for generic method
+        @NamedQuery(name = Developer.LOAD_BY_LAST_NAME, query = "SELECT d FROM Developer d WHERE d.lastName=:name"),
         @NamedQuery(name = Developer.LOAD_ALL, query = "SELECT d FROM Developer d ORDER BY d.id"),
 })
 @Entity
@@ -56,7 +58,10 @@ public class Developer extends NamedEntity {
     }
 
     public Developer() {
+    }
 
+    public Developer(Developer developer) {
+        this(developer.getId(), developer.getName(), developer.getLastName(), new Company(developer.getCompany()), new HashSet<>(developer.getSkills()));
     }
 
     public String getLastName() {

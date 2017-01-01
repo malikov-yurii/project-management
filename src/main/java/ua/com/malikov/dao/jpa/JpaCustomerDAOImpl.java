@@ -2,7 +2,6 @@ package ua.com.malikov.dao.jpa;
 
 import org.slf4j.Logger;
 import ua.com.malikov.dao.CustomerDAO;
-import ua.com.malikov.model.Company;
 import ua.com.malikov.model.Customer;
 
 import java.util.List;
@@ -51,6 +50,6 @@ public class JpaCustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void deleteAll() {
-        jpaUtils.deleteAll(Company.DELETE_ALL, LOG);
+        jpaUtils.deleteAll(Customer.DELETE_ALL, LOG);
     }
 }

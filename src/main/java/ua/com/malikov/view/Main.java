@@ -573,7 +573,7 @@ public class Main {
         skillController.getAll().forEach(System.out::println);
         String skillName = br.readLine();
         while (!"".equals(skillName)) {
-            Skill skill = skillController.getByName(skillName);
+            Skill skill = skillController.get(skillName);
             if (skill != null) {
                 skills.add(skill);
             } else {

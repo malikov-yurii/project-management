@@ -36,6 +36,12 @@ public class CustomerService extends AbstractService<Customer> {
 
     @Transactional
     @Override
+    public Customer get(String name) throws SQLException {
+        return customerDAO.load(name);
+    }
+
+    @Transactional
+    @Override
     public List<Customer> getAll() throws SQLException {
         return customerDAO.findAll();
     }

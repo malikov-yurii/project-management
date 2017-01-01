@@ -16,6 +16,8 @@ public abstract class AbstractService<T> {
 
     public abstract T get(int id) throws SQLException;
 
+    public abstract T get(String name) throws SQLException;
+
     public abstract List<T> getAll() throws SQLException;
 
     public abstract void update(T t) throws SQLException;

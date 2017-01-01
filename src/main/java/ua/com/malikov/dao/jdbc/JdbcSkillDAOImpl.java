@@ -14,7 +14,7 @@ public class JdbcSkillDAOImpl implements SkillDAO {
 
     private static final String GET_BY_ID = String.format("SELECT * FROM pms.skills WHERE %s=?", Skill.ID);
     private static final String INSERT_ROW = String.format("INSERT INTO pms.skills (%s) VALUES (?)", Skill.NAME);
-    private static final String GET_BY_NAME = String.format("SELECT (id) FROM pms.skills WHERE %s = ?", Skill.NAME);
+    private static final String GET_BY_NAME = String.format("SELECT * FROM pms.skills WHERE %s = ?", Skill.NAME);
     private static final String UPDATE_ROW = String.format("UPDATE pms.skills SET %s = ? WHERE %s = ?", Skill.NAME, Skill.ID);
     private static final String GET_ALL = "SELECT * FROM pms.skills";
     private static final String DELETE_BY_ID = String.format("DELETE FROM pms.skills WHERE %s = ?", Skill.ID);
@@ -107,7 +107,7 @@ public class JdbcSkillDAOImpl implements SkillDAO {
                 preparedStatement.setString(1, name);
                 try ( ResultSet resultSet = preparedStatement.executeQuery() ) {
                     if (resultSet.next()) {
-                        Skill skill = new Skill(resultSet.getInt(Skill.ID), name);
+                        Skill skill = new Skill(resultSet.getInt(Skill.ID), resultSet.getString(Skill.NAME));
                         LOG.info("Skill " + skill + " has been successfully found in database.");
                         return skill;
                     } else {

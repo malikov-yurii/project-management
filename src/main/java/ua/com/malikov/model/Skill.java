@@ -27,6 +27,10 @@ public class Skill extends NamedEntity {
         super(name);
     }
 
+    public Skill(Skill skill) {
+        super(skill.getId(), skill.getName());
+    }
+
     public Skill(Integer id, String name) {
         super(id, name);
     }

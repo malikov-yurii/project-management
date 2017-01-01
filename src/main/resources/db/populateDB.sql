@@ -1,3 +1,12 @@
+DELETE FROM pms.companies;
+DELETE FROM pms.customers;
+DELETE FROM pms.projects;
+DELETE FROM pms.developers;
+DELETE FROM pms.skills;
+DELETE FROM pms.developers_skills;
+DELETE FROM pms.projects_developers;
+
+
 INSERT INTO pms.companies
 		(company_name)
 	VALUES 
@@ -37,7 +46,7 @@ INSERT INTO pms.skills
 VALUES
 	('Java'),
 	('SQL'),
-	('spring'),
+	('Spring'),
 	('Junit'),
 	('Maven');
 

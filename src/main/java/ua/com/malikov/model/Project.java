@@ -4,6 +4,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @NamedQueries({
@@ -45,7 +46,7 @@ public class Project extends NamedEntity {
     @JoinTable(
             name = "pms.projects_developers",
             joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn( name = "developer_id")
+            inverseJoinColumns = @JoinColumn(name = "developer_id")
     )
     private Set<Developer> developers;
 
@@ -79,9 +80,11 @@ public class Project extends NamedEntity {
         this.name = name;
     }
 
-    public Project(int id, String name, Company company, Customer customer, Set<Developer> developers, float cost) {
-        this(id, name, company, customer, developers);
-        this.cost = cost;
+    public Project(Project project) {
+        this(project.getId(), project.getName(), new Company(project.getCompany()),
+                new Customer(project.getCustomer()),
+                        new HashSet<>(project.getDevelopers()),
+                        project.getCost());
     }
 
     @Override

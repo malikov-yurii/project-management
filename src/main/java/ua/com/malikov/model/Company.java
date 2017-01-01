@@ -39,6 +39,10 @@ public class Company extends NamedEntity {
         super(id, name);
     }
 
+    public Company(Company company) {
+        this(company.getId(), company.getName());
+    }
+
     public void addDeveloper(Developer developer){
         this.developers.add(developer);
     }
