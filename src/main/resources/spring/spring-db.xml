@@ -109,6 +109,7 @@
               p:packagesToScan="ua.com.malikov.model">
             <property name="jpaPropertyMap">
                 <map>
+        <!--!!!!!!!!!!!!!!!!!!!!!!!!!!! Сheck is second level ecache working ok!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
                     <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="true"/>
                     <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}"
                            value="true"/>
