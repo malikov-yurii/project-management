@@ -9,7 +9,7 @@ import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = Project.DELETE_BY_ID, query = "DELETE FROM Project p WHERE p.id=:id"),
-        @NamedQuery(name = Project.DELETE_ALL, query = "DELETE FROM Project p"),
+        @NamedQuery(name = Project.DELETE_ALL, query = "DELETE FROM Project"),
         @NamedQuery(name = Project.LOAD_BY_NAME, query = "SELECT p FROM Project p WHERE p.name=:name"),
         @NamedQuery(name = Project.LOAD_ALL, query = "SELECT p FROM Project p ORDER BY p.id")
 })

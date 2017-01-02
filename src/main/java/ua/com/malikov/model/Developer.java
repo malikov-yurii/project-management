@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = Developer.DELETE, query = "DELETE FROM Developer d WHERE d.id=:id"),
-        @NamedQuery(name = Developer.DELETE_ALL, query = "DELETE FROM Developer d"),
+        @NamedQuery(name = Developer.DELETE_ALL, query = "DELETE FROM Developer"),
 //      ":name" below is not mistake - it is for generic method
         @NamedQuery(name = Developer.LOAD_BY_LAST_NAME, query = "SELECT d FROM Developer d WHERE d.lastName=:name"),
         @NamedQuery(name = Developer.LOAD_ALL, query = "SELECT d FROM Developer d ORDER BY d.id"),

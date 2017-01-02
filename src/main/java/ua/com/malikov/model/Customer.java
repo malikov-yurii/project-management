@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @NamedQueries({
         @NamedQuery(name = Customer.DELETE_BY_ID, query = "DELETE FROM Customer c WHERE c.id=:id"),
-        @NamedQuery(name = Customer.DELETE_ALL, query = "DELETE FROM Customer c"),
+        @NamedQuery(name = Customer.DELETE_ALL, query = "DELETE FROM Customer"),
         @NamedQuery(name = Customer.LOAD_BY_NAME, query = "SELECT c FROM Customer c WHERE c.name=:name"),
         @NamedQuery(name = Customer.LOAD_ALL, query = "SELECT c FROM Customer c ORDER BY c.id"),
 })
