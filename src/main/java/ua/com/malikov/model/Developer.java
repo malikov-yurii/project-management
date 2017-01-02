@@ -10,8 +10,8 @@ import java.util.Set;
         @NamedQuery(name = Developer.DELETE, query = "DELETE FROM Developer WHERE id=:id"),
         @NamedQuery(name = Developer.DELETE_ALL, query = "DELETE FROM Developer"),
 //      ":name" below is not mistake - it is for generic method
-        @NamedQuery(name = Developer.LOAD_BY_LAST_NAME, query = "SELECT d FROM Developer d WHERE d.lastName=:name"),
-        @NamedQuery(name = Developer.LOAD_ALL, query = "SELECT d FROM Developer d ORDER BY d.id"),
+        @NamedQuery(name = Developer.LOAD_BY_LAST_NAME, query = "FROM Developer d WHERE d.lastName=:name"),
+        @NamedQuery(name = Developer.LOAD_ALL, query = "FROM Developer d ORDER BY d.id"),
 })
 @Entity
 @Table(name = "pms.developers")
