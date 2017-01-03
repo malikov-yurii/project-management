@@ -20,7 +20,9 @@ import java.util.concurrent.TimeUnit;
         "classpath:spring/spring-db.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = {"classpath:db/initDB.sql", "classpath:db/populateDB.sql"},
+@Sql(scripts = {
+//    "classpath:db/initDB.sql",
+        "classpath:db/populateDB.sql"},
         config = @SqlConfig(encoding = "UTF-8"))
 public abstract class AbstractServiceTest {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceTest.class);

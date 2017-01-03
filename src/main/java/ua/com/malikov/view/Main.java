@@ -19,7 +19,6 @@ import java.util.Set;
 public class Main {
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private boolean reInit;
 
     private CompanyService companyController;
     private CustomerService customerController;
@@ -618,10 +617,6 @@ public class Main {
 
     public void setSkillController(SkillService skillController) {
         this.skillController = skillController;
-    }
-
-    public void setReInit(boolean reInit) {
-        this.reInit = reInit;
     }
 
     public void setDataSource(DataSource dataSource) {

@@ -6,6 +6,11 @@ DELETE FROM pms.skills;
 DELETE FROM pms.developers_skills;
 DELETE FROM pms.projects_developers;
 
+ALTER SEQUENCE pms.projects_id_seq RESTART WITH 1;
+ALTER SEQUENCE pms.customers_id_seq RESTART WITH 1;
+ALTER SEQUENCE pms.developers_id_seq RESTART WITH 1;
+ALTER SEQUENCE pms.companies_id_seq RESTART WITH 1;
+ALTER SEQUENCE pms.skills_id_seq RESTART WITH 1;
 
 INSERT INTO pms.companies
 		(company_name)
