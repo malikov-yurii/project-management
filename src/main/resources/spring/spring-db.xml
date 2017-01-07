@@ -115,6 +115,7 @@
                            value="true"/>
                     <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>
                     <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> <!--default-->
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).DEFAULT_SCHEMA}" value="${jdbc.schema}"/>
                 </map>
             </property>
 

@@ -9,7 +9,7 @@ import javax.persistence.*;
         @NamedQuery(name = Skill.LOAD_ALL, query = "FROM Skill s ORDER BY s.id")
 })
 @Entity
-@Table(name = "pms.skills")
+@Table(name = "skills")
 @AttributeOverride(name = "name", column = @Column(name = Skill.NAME))
 public class Skill extends NamedEntity {
 

@@ -14,7 +14,7 @@ import java.util.Set;
         @NamedQuery(name = Developer.LOAD_ALL, query = "FROM Developer d ORDER BY d.id"),
 })
 @Entity
-@Table(name = "pms.developers")
+@Table(name = "developers")
 @AttributeOverride(name = "name", column = @Column(name = Developer.FIRST_NAME))
 public class Developer extends NamedEntity {
 
@@ -37,7 +37,7 @@ public class Developer extends NamedEntity {
     @ManyToMany
     @Fetch(FetchMode.JOIN)
     @JoinTable(
-            name = "pms.developers_skills",
+            name = "developers_skills",
             joinColumns = @JoinColumn(name = "developer_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id")
     )

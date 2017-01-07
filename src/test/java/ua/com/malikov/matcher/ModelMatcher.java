@@ -7,12 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * GKislin
- * 06.01.2015.
- * <p>
- * This class wrap every entity by Wrapper before assertEquals in order to compare them by comparator
- * Default comparator compare by String.valueOf(entity)
- *
  * @param <T> : Entity
  */
 public class ModelMatcher<T> {

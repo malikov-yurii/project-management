@@ -13,7 +13,7 @@ import java.util.Set;
         @NamedQuery(name = Company.LOAD_ALL, query = "FROM Company c ORDER BY c.id"),
 })
 @Entity
-@Table(name = "pms.companies")
+@Table(name = "companies")
 @AttributeOverride(name = "name", column = @Column(name = Company.NAME))
 public class Company extends NamedEntity {
 

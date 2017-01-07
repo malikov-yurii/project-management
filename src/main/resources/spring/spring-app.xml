@@ -10,32 +10,31 @@
 
     <bean id="main" class="ua.com.malikov.view.Main">
         <property name="dataSource" ref="dataSource"/>
-        <property name="companyController" ref="companyController"/>
-        <property name="customerController" ref="customerController"/>
-        <property name="developerController" ref="developerController"/>
-        <property name="projectController" ref="projectController"/>
-        <property name="skillController" ref="skillController"/>
+        <property name="companyService" ref="companyService"/>
+        <property name="customerService" ref="customerService"/>
+        <property name="developerService" ref="developeService"/>
+        <property name="projectService" ref="projectService"/>
+        <property name="skillService" ref="skillService"/>
     </bean>
 
-    <bean id="companyController" class="ua.com.malikov.service.CompanyService" >
+    <bean id="companyService" class="ua.com.malikov.service.CompanyService" >
         <property name="companyDAO" ref="companyDAO"/>
         <property name="developerDAO" ref="developerDAO"/>
-
     </bean>
 
-    <bean id="customerController" class="ua.com.malikov.service.CustomerService" >
+    <bean id="customerService" class="ua.com.malikov.service.CustomerService" >
         <property name="customerDAO" ref="customerDAO"/>
     </bean>
 
-    <bean id="developerController" class="ua.com.malikov.service.DeveloperService" >
+    <bean id="developeService" class="ua.com.malikov.service.DeveloperService" >
         <property name="developerDAO" ref="developerDAO"/>
     </bean>
 
-    <bean id="projectController" class="ua.com.malikov.service.ProjectService" >
+    <bean id="projectService" class="ua.com.malikov.service.ProjectService" >
         <property name="projectDAO" ref="projectDAO"/>
     </bean>
 
-    <bean id="skillController" class="ua.com.malikov.service.SkillService" >
+    <bean id="skillService" class="ua.com.malikov.service.SkillService" >
         <property name="skillDAO" ref="skillDAO"/>
     </bean>
 

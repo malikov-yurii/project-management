@@ -599,24 +599,24 @@ public class Main {
         return null;
     }
 
-    public void setCompanyController(CompanyService companyController) {
-        this.companyController = companyController;
+    public void setCompanyService(CompanyService companyService) {
+        this.companyController = companyService;
     }
 
-    public void setCustomerController(CustomerService customerController) {
-        this.customerController = customerController;
+    public void setCustomerService(CustomerService customerService) {
+        this.customerController = customerService;
     }
 
-    public void setDeveloperController(DeveloperService developerController) {
-        this.developerController = developerController;
+    public void setDeveloperService(DeveloperService developerService) {
+        this.developerController = developerService;
     }
 
-    public void setProjectController(ProjectService projectController) {
-        this.projectController = projectController;
+    public void setProjectService(ProjectService projectService) {
+        this.projectController = projectService;
     }
 
-    public void setSkillController(SkillService skillController) {
-        this.skillController = skillController;
+    public void setSkillService(SkillService skillService) {
+        this.skillController = skillService;
     }
 
     public void setDataSource(DataSource dataSource) {

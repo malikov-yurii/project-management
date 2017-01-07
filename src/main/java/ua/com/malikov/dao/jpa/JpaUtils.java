@@ -14,13 +14,13 @@ public class JpaUtils {
 
     @Transactional
     <T extends NamedEntity> T save(T t, Logger LOG) {
-            boolean isNew = t.isNew();
-            if (isNew) {
-                em.persist(t);
-            } else {
-                em.merge(t);
-            }
-            LOG.info(t + " was " + (isNew ? "created" : "updated") + " successfully.");
+        boolean isNew = t.isNew();
+        if (isNew) {
+            em.persist(t);
+        } else {
+            em.merge(t);
+        }
+        LOG.info(t + " was " + (isNew ? "created" : "updated") + " successfully.");
         return t;
     }
 
@@ -73,13 +73,19 @@ public class JpaUtils {
     <T extends NamedEntity> T loadByName(String name, String hql, Logger LOG) {
         Query query = em.createNamedQuery(hql);
         query.setParameter("name", name);
+        T t = null;
         try {
-            return (T) query.getSingleResult();
+            if (query.getResultList().size() == 0) {
+                LOG.error("Cannot find by name: " + name);
+            } else {
+                t = (T) query.getSingleResult();
+                LOG.info("Successful search by name.");
+            }
         } catch (NoResultException e) {
             LOG.error("Cannot find entity by name: " + name);
         } catch (NonUniqueResultException e) {
             LOG.error("Error! Name should be unique! Several entities has been found by name: " + name);
         }
-        return null;
+        return t;
     }
 }
